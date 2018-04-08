@@ -19,7 +19,7 @@ select * from @x
 
 update prueba 
 set id=1001
-where nombre='mil'
+where nombre='milsfgsdtsd'
 
 delete from Prueba
 where id=1001
