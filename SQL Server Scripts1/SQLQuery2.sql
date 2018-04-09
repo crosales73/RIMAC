@@ -29,7 +29,7 @@ ORDER BY b.FECHA_DE_CAPTURA
 use RimacProte1
 select * from [dbo].[CONSOLIDADO_BD_ONCOLOGICO]
 select * from [dbo].[CONSOLIDADO_GESTIONES_ONCOLÓGICO]
-where FECHA_DE_CAPTURA like '2018-04-06%'
+where FECHA_DE_CAPTURA between '20180407 00:00:00' and '20180407 23:59:59'
 
 --where FECHA lile '%2018-04-07%'
 
