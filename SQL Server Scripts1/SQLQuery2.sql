@@ -3,9 +3,9 @@ CAIDA+b.CLIENTE as suma from  --Cuando en una suma los dos valores no son numeri
 [dbo].[CONSOLIDADO_BD_RENTA_PROTE] as a --Se le asigna un nombre a la base para ahorrar tiempo.
 inner join [dbo].[CONSOLIDADO_GESTIONES_RENTA] as b
 on a.NDOC_IDENT=b.NDOC_IDENT
---where a.N_TARJETA='************0987'
---where a.N_TARJETA like '%3__'
---and b.CONTRATO_AHORRO like '%8'
+--where a.N_TARJETA='************0987' --Condicionales--
+--where a.N_TARJETA like '%3__' --% se usa como comodin de todos los digitos que hay--
+--and b.CONTRATO_AHORRO like '%8' --_ se usa para indicar 1 digitos adicional--
 
 union all
 select a.Estado, departamento, (CASE A.PRODUCTO_A_OFRECER WHEN 'Protección Multiple' THEN 'Prote' else '' end) as [Producto],
@@ -14,7 +14,23 @@ CAIDA+c.CLIENTE as suma from  --Cuando en una suma los dos valores no son numeri
 inner join [dbo].[CONSOLIDADO_GESTIONES_PROTE] as c
 on a.NDOC_IDENT=c.NDOC_IDENT
 
-select HORA, FECHA from CONSOLIDADO_GESTIONES_RENTA
+
+--EJECUTAR PARA SACAR DATOS DE ONCOLÓGICO--
+select b.NRO_DE_DOCUMENTO, b.MOTIVO, b.NOMBRE_OPERADOR, b.SEGMENTO, b.FECHA_DE_CAPTURA, a.SEXO, a.DEPARTAMENTO, a.DISTRITO, a.ZONAL, a.EDAD, c.ESTADO, (CASE a.[Grupo Analytics] when '%NO' then 'NO' else 'SI' end) [Tarjeta Habiente]  --Cuando en una suma los dos valores no son numericos, se concatenan.
+from [dbo].[CONSOLIDADO_BD_ONCOLOGICO] as a --Se le asigna un nombre a la base para ahorrar tiempo.
+inner join [dbo].[CONSOLIDADO_GESTIONES_ONCOLÓGICO] as b
+on a.[Número de identificación]=b.NRO_DE_DOCUMENTO
+inner join [dbo].[TIPIFICACIONES_ONCOLOGICO] c
+on b.motivo=c.sistema
+ORDER BY b.FECHA_DE_CAPTURA
+
+
+--CONSULTAR LAS TABLAS--
+use RimacProte1
+select * from [dbo].[CONSOLIDADO_BD_ONCOLOGICO]
+select * from [dbo].[CONSOLIDADO_GESTIONES_ONCOLÓGICO]
+
+
 where FECHA = '06/04/2018'
 
 
