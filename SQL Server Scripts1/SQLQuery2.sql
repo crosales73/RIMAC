@@ -16,7 +16,7 @@ on a.NDOC_IDENT=c.NDOC_IDENT
 
 
 --EJECUTAR PARA SACAR DATOS DE ONCOLÓGICO--
-select b.NRO_DE_DOCUMENTO, b.MOTIVO, b.NOMBRE_OPERADOR, b.SEGMENTO, b.FECHA_DE_CAPTURA, a.SEXO, a.DEPARTAMENTO, a.DISTRITO, a.ZONAL, a.EDAD, c.ESTADO, (CASE a.[Grupo Analytics] when '%NO' then 'NO' else 'SI' end) [Tarjeta Habiente]  --Cuando en una suma los dos valores no son numericos, se concatenan.
+select b.NRO_DE_DOCUMENTO, b.MOTIVO, b.NOMBRE_OPERADOR, b.SEGMENTO, b.FECHA_DE_CAPTURA, a.SEXO, a.DEPARTAMENTO, a.DISTRITO, a.ZONAL, a.EDAD, c.ESTADO, (CASE a.[Grupo Analytics] when 'TIPO:CLIENTES|TIENE_SALUD:NO|TARJETAHABIENTE:NO' then 'NO' else 'SI' end) [Tarjeta Habiente]  --Cuando en una suma los dos valores no son numericos, se concatenan.
 from [dbo].[CONSOLIDADO_BD_ONCOLOGICO] as a --Se le asigna un nombre a la base para ahorrar tiempo.
 inner join [dbo].[CONSOLIDADO_GESTIONES_ONCOLÓGICO] as b
 on a.[Número de identificación]=b.NRO_DE_DOCUMENTO
@@ -29,9 +29,9 @@ ORDER BY b.FECHA_DE_CAPTURA
 use RimacProte1
 select * from [dbo].[CONSOLIDADO_BD_ONCOLOGICO]
 select * from [dbo].[CONSOLIDADO_GESTIONES_ONCOLÓGICO]
+where FECHA_DE_CAPTURA like '2018-04-06%'
 
-
-where FECHA = '06/04/2018'
+--where FECHA lile '%2018-04-07%'
 
 
 --insert into dbo.prueba2 (nombre, id, telefono) values ('mil',1000,10001000)
@@ -51,5 +51,4 @@ delete from Prueba
 where id=1001
 select * from Prueba
 
-SELECT COUNT(1) FROM Prueba
-
+SELECT COUNT(1) FROM [dbo].[CONSOLIDADO_GESTIONES_ONCOLÓGICO]
